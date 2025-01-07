@@ -1,0 +1,36 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}My Wishlist{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="mb-4">My Wishlist</h2>
+            <div class="row">
+                {% if wishlist_items %}
+                    {% for item in wishlist_items %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 text-center mb-4 hover-shadow">
+                        <a href="{% url 'product-detail' item.product.id %}" class="btn">
+                            <div style="transition: box-shadow 0.3s; box-shadow: none;" 
+                            onmouseover="this.style.boxShadow='0px 4px 8px rgba(0, 0, 0, 0.2)'" 
+                            onmouseout="this.style.boxShadow='none'">
+                                <img src="{{ item.product.product_image.url }}" width="300px" height="200px"/>
+                                <div class="fw-bold">{{ item.product.title }}</div>
+                                <div class="fw-bold text-danger">
+                                    Rs.{{ item.product.discounted_price }}/-
+                                    <small class="fw-light text-decoration-line-through">
+                                        {{ item.product.selling_price }}
+                                    </small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No items in your wishlist yet!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}
